@@ -8,7 +8,12 @@ const config = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '..', 'build'),
   },
-  plugins: [new webpack.ProgressPlugin(), new HtmlWebpackPlugin()],
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+    }),
+  ],
 }
 
 module.exports = config
