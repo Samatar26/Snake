@@ -8,10 +8,17 @@ canvas.height = window.innerHeight / 2
 
 const snake = new Snake(canvas, 50, 300)
 
+let direction
+
 const animate = e => {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, innerWidth, innerHeight)
-  snake.move()
+  snake.move(direction)
 }
 
+const setDirection = e => {
+  direction = e.keyCode
+}
+
+window.addEventListener('keydown', setDirection)
 requestAnimationFrame(animate)
