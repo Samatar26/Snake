@@ -5,6 +5,7 @@ class Snake {
     this.length = 5
     this.snake = []
     this.size = 10
+    this.score = 0
     this.c = canvas.getContext('2d')
     this.init()
   }
@@ -16,6 +17,8 @@ class Snake {
   }
 
   draw() {
+    this.c.fillText(`Score: ${this.score}`, 350/2, 10)
+
     this.snake.forEach(block => {
       this.c.fillRect(
         block.x * this.size,
@@ -52,9 +55,13 @@ class Snake {
       default:
         snakeY++
     }
+    this.reArrange(snakeX, snakeY)
+  }
+
+  reArrange(x, y) {
     this.tail = this.snake.pop()
-    this.tail.x = snakeX
-    this.tail.y = snakeY
+    this.tail.x = x
+    this.tail.y = y
     this.snake.unshift(this.tail)
     this.x = this.snake[0].x
     this.y = this.snake[0].y
@@ -63,6 +70,7 @@ class Snake {
 
   levelUp() {
     this.snake.push({ x: this.snake[0].x, y: this.snake[0].y })
+    this.score++
   }
 }
 
