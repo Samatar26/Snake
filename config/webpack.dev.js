@@ -1,3 +1,6 @@
+const Dashboard = require('webpack-dashboard')
+const DashboardPlugin = require('webpack-dashboard/plugin')
+const dashboard = new Dashboard()
 const config = {
   devtool: 'eval-source-map',
   module: {
@@ -8,6 +11,7 @@ const config = {
       },
     ],
   },
+  plugins: [new DashboardPlugin(dashboard.setData)],
 }
 
 module.exports = config

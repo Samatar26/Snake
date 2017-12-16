@@ -1,29 +1,68 @@
 class Snake {
-  constructor(canvas, width, height) {
-    this.x = width
-    this.y = height
+  constructor(canvas, x, y) {
+    this.x = x
+    this.y = y
+    this.length = 5
+    this.snake = []
+    this.size = 10
     this.c = canvas.getContext('2d')
+    this.init()
+  }
+
+  init() {
+    for (let i = this.length - 1; i >= 0; i--) {
+      this.snake.push({ x: i, y: 0 })
+    }
   }
 
   draw() {
-    this.c.fillRect(this.x, this.y, 10, 10)
+    this.snake.forEach(block => {
+      this.c.fillRect(
+        block.x * this.size,
+        block.y * this.size,
+        this.size,
+        this.size
+      )
+      this.c.strokeStyle = 'darkgreen'
+      this.c.strokeRect(
+        block.x * this.size,
+        block.y * this.size,
+        this.size,
+        this.size
+      )
+    })
   }
 
   move(direction) {
-    this.draw()
+    let snakeX = this.snake[0].x
+    let snakeY = this.snake[0].y
     switch (direction) {
       case 37:
-        this.x -= 1
+        snakeX--
         break
       case 38:
-        this.y -= 1
+        snakeY--
         break
       case 39:
-        this.x += 1
+        snakeX++
         break
       case 40:
-        this.y += 1
+        snakeY++
+        break
+      default:
+        snakeY++
     }
+    this.tail = this.snake.pop()
+    this.tail.x = snakeX
+    this.tail.y = snakeY
+    this.snake.unshift(this.tail)
+    this.x = this.snake[0].x
+    this.y = this.snake[0].y
+    this.draw()
+  }
+
+  levelUp() {
+    this.snake.push({ x: this.snake[0].x, y: this.snake[0].y })
   }
 }
 
